@@ -1,0 +1,30 @@
+{
+  "extends": ["prettier", "airbnb-base"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "env": {
+    "commonjs": true,
+    "node": true
+  },
+  "rules": {
+    "endOfLine": "auto",
+    "no-console": 0,
+    "indent": 0,
+    // "linebreak-style": 0,
+    "linebreak-style": ["error", "unix"],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 100,
+        "tabWidth": 4,
+        "semi": true
+      }
+    ],
+    "import/prefer-default-export": 0,
+    "import/extensions": 0
+  },
+  "plugins": ["prettier"]
+}

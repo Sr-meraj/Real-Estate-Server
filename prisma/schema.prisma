@@ -1,0 +1,44 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id               String      @id @default(auto()) @map("_id") @db.ObjectId
+    name             String?
+    email            String      @unique
+    image            String?
+    phone            String?
+    lang             String?
+    social           Json?
+    ownedResidencies Residency[] @relation("Owner")
+    bookedVisits     Json[]
+    favResidenciesID String[]    @db.ObjectId
+    createdAt        DateTime    @default(now())
+    updatedAt        DateTime    @updatedAt
+}
+
+model Residency {
+    id              String   @id @default(auto()) @map("_id") @db.ObjectId
+    title           String
+    address         String
+    description     String
+    city            String
+    country         String
+    price           Float
+    facilities      Json
+    features        Json
+    residencyStatus String
+    images          Json
+    availability    Boolean  @default(false)
+    agentEmail      String
+    owner           User     @relation("Owner", fields: [agentEmail], references: [email])
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+
+    @@unique([address, agentEmail])
+}
